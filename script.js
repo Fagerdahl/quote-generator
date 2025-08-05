@@ -1,11 +1,32 @@
+const quoteContainer = document.querySelector('#quote-container');
+const quoteText = document.querySelector('#quote');
+const authorText = document.querySelector('#author');
+const facebookBtn = document.querySelector('#facebook');
+const newQuoteBtn = document.querySelector('#new-quote');
+
 let apiQuotes = []; // Let instead of constant- because the value of the array will change
 
 // Show new quote
 function newQuote() {
   // Pick a random quote from apiQuotes array
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
-  console.log(quote);
-}
+  // Check if Author is blank and replace it with 'unknown'
+  if (!quote.author) {
+    authorText.textContent = 'Unknown'
+  } else {
+    authorText.textContent = quote.author;
+  }
+
+  //Check quote length to determine styling
+  if (quote.text.length > 50) {
+    quoteText.classList.add('long-quote');
+  } else {
+    quoteText.classList.remove('long-quote');
+  }
+  
+  quoteText.textContent = quote.text;
+
+} 
 
 // Get Quotes from API, async fetch req within a try catch statement
 async function getQuotes() {
