@@ -18,7 +18,7 @@ function newQuote() {
   }
 
   //Check quote length to determine styling
-  if (quote.text.length > 50) {
+  if (quote.text.length > 100) {
     quoteText.classList.add('long-quote');
   } else {
     quoteText.classList.remove('long-quote');
@@ -39,6 +39,21 @@ async function getQuotes() {
     // Catch error
   }
 }
+
+//Share a quote, using template string with backtics
+function facebookQuote() {
+  const quote = quoteText.textContent;
+  const author = authorText.textContent;
+  const quoteMessage = `"${quote}" - ${author}`;
+
+  const shareUrl = 'https://fagerdahl.github.io/quote-generator/';
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(quoteMessage)}`;
+
+  window.open(facebookUrl, '_blank');
+}
+
+facebookBtn.addEventListener('click', facebookQuote);
+newQuoteBtn.addEventListener('click', newQuote);
 
 // Call the function
 getQuotes();
