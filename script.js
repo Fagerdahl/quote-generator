@@ -1,12 +1,12 @@
-const quoteContainer = document.querySelector('#quote-container');
-const quoteText = document.querySelector('#quote');
-const authorText = document.querySelector('#author');
-const facebookBtn = document.querySelector('#facebook');
-const newQuoteBtn = document.querySelector('#new-quote');
-const prevQuoteBtn = document.querySelector('#prev-quote');
+const quoteContainer = document.querySelector("#quote-container");
+const quoteText = document.querySelector("#quote");
+const authorText = document.querySelector("#author");
+const facebookBtn = document.querySelector("#facebook");
+const newQuoteBtn = document.querySelector("#new-quote");
+const prevQuoteBtn = document.querySelector("#prev-quote");
 
 // Save Quote history
-let quoteHistory = []; 
+let quoteHistory = [];
 let currentQuote = null;
 
 let apiQuotes = []; // Let instead of constant- because the value of the array will change
@@ -21,19 +21,17 @@ function newQuote() {
   currentQuote = quote;
 
   // If no author
-  authorText.textContent = quote.author || 'Unknown';
-
+  authorText.textContent = quote.author || "Unknown";
 
   //Check quote length to determine styling
   if (quote.text.length > 140) {
-    quoteText.classList.add('long-quote');
+    quoteText.classList.add("long-quote");
   } else {
-    quoteText.classList.remove('long-quote');
+    quoteText.classList.remove("long-quote");
   }
-  
-  quoteText.textContent = quote.text;
 
-} 
+  quoteText.textContent = quote.text;
+}
 
 function prevQuote() {
   if (quoteHistory.length === 0) return;
@@ -41,18 +39,17 @@ function prevQuote() {
   const previous = quoteHistory.pop();
   currentQuote = previous;
 
-  authorText.textContent = previous.author || 'Unknown';
+  authorText.textContent = previous.author || "Unknown";
 
   if (previous.text.length > 140) {
-    quoteText.classList.add('long-quote');
+    quoteText.classList.add("long-quote");
   } else {
-    quoteText.classList.remove('long-quote');
+    quoteText.classList.remove("long-quote");
   }
 
   quoteText.textContent = previous.text;
 }
-prevQuoteBtn.addEventListener('click', prevQuote);
-
+prevQuoteBtn.addEventListener("click", prevQuote);
 
 // Get Quotes from API, async fetch req within a try catch statement
 async function getQuotes() {
@@ -72,14 +69,16 @@ function facebookQuote() {
   const author = authorText.textContent;
   const quoteMessage = `"${quote}" - ${author}`;
 
-  const shareUrl = 'https://fagerdahl.github.io/quote-generator/';
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(quoteMessage)}`;
+  const shareUrl = "https://fagerdahl.github.io/quote-generator/";
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    shareUrl
+  )}&quote=${encodeURIComponent(quoteMessage)}`;
 
-  window.open(facebookUrl, '_blank');
+  window.open(facebookUrl, "_blank");
 }
 
-facebookBtn.addEventListener('click', facebookQuote);
-newQuoteBtn.addEventListener('click', newQuote);
+facebookBtn.addEventListener("click", facebookQuote);
+newQuoteBtn.addEventListener("click", newQuote);
 
 // Call the function
 getQuotes();
